@@ -17,7 +17,7 @@ console.log("inside movie list")
   
   }
   useEffect(()=>{
-      getMoviesData();
+     !movies && getMoviesData();
   },[])
 
   

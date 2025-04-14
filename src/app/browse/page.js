@@ -17,16 +17,11 @@ const Browser=()=>{
     try{
       console.log("inside browser inside use effect ")
       if (typeof window !== 'undefined') {
-     
         const userData = localStorage.getItem('userData');
-        console.log("inside browser inside use effect  ",userData)
         if (userData) {
           const {email}=JSON.parse(userData);
-          console.log("inside browser inside use effect  email ",email)
-          console.log(email)
           setAccount(email);
         } else {
-          console.log("inside router push to / page")
           router.push('/');
         }
       }
@@ -38,8 +33,7 @@ const Browser=()=>{
   }, []);
  
   if(!account){
-    console.log("inside account was not there'",account)
-    
+
       return (
         <ShimmerUI/>
       );

@@ -41,3 +41,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 -Interarted tmdb api for search movies by name
 -authorization is persistance when you close the tab by using local storage
 -filter the movie base on recommendation of movie in the search bar 
+-Memoization inside useffect in useMovie hook
+-solve blinking issue by providing loader inside  useEffect

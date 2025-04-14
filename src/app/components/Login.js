@@ -6,6 +6,7 @@ import { validateForm } from "../utils/validateForm";
 import { BG_URL } from '../utils/constants';
 import { addUser } from '../utils/userSlice';
 import { useDispatch } from 'react-redux';
+import { toogleGPTButton } from '../utils/searchGPTSlice';
 
 const Login = () => {
 console.log("inside login")
@@ -35,7 +36,10 @@ console.log("inside login")
     }
   
     dispatch(addUser({id:email,password:password}))
-  localStorage.setItem('userData',  JSON.stringify({email,password}));
+    console.log("yha tk sbh shi hai");
+    dispatch(toogleGPTButton(false))
+    console.log("yha tk sbh shi hai 3");
+    localStorage.setItem('userData',  JSON.stringify({email,password}));
     router.push('/browse')
       
     } catch (error) {

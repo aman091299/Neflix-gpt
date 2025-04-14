@@ -12,8 +12,8 @@ const searchGPTSlice=createSlice({
        addGPTMovies:(state,action)=>{
            state.gptMovies=action.payload;
        },
-       toogleGPTButton:(state)=>{
-        state.showGPTSearch=!state.showGPTSearch;
+       toogleGPTButton:(state,action)=>{
+        state.showGPTSearch=action.payload;
        }
 
     }

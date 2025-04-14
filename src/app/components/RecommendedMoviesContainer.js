@@ -10,12 +10,11 @@ const RecommendedMoviesContainer = () => {
 
   return (
     <div>
-    {movies &&
+    {
       movies?.map((movie,i)=>(
-         <>
-         {console.log("movie id",movie,i)}
-         <MovieList key={i} title={movie[0]?.title} gptMovies={movie}/>
-         </>
+    
+         <MovieList key={movie[0]?.id} title={movie[0]?.title} gptMovies={movie}/>
+      
       ))
     }
      

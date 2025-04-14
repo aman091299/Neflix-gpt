@@ -7,14 +7,14 @@ import SearchBar from '../components/SearchBar'
 import RecommendedMoviesContainer from '../components/RecommendedMoviesContainer'
 import { useRouter } from 'next/navigation'
 import Loader from '../components/common/Loader'
-import { useEffect ,useState} from 'react'
+import { useEffect,useLayoutEffect ,useState} from 'react'
 const SearchGPT=()=>{
   console.log("inside search gpt page")
   const [account,setAccount]=useState(null);
+  const [loading,setLoading]=useState(null);
   const router=useRouter();
-  console.log("account",account)
-
-  useEffect(()=>{
+ 
+  useLayoutEffect(()=>{
     try {
       console.log("inside serach gpt use effect ")
       if(typeof window !== 'undefined'){
@@ -26,12 +26,15 @@ const SearchGPT=()=>{
         setAccount(user);
       }
     } catch (error) {
-      console.error("error in locat storage in search gpt page",error)
+      console.error("error in local storage in search gpt page",error)
+    } finally{
+      setLoading(false)
     }
+
   },[])
 
 
-   if(!account){
+   if(loading){
    
    return  <Loader/>
    
