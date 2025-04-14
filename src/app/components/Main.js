@@ -1,9 +1,9 @@
+"use client"
 import Header from './Header'
 import Login from "./Login"
 const Main=()=>{
     return(
-        <div className="">
-
+        <div>
     <Header/>
     <Login/>
         </div>

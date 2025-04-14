@@ -1,47 +1,54 @@
-"use client";
 
+import { useRouter } from 'next/navigation'
 import Image from "next/image";
 import { useRef, useState } from "react";
-import { validateForm } from "@/utils/validateForm";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { validateForm } from "../utils/validateForm";
+import { BG_URL } from '../utils/constants';
+import { addUser } from '../utils/userSlice';
+import { useDispatch } from 'react-redux';
 
 const Login = () => {
+console.log("inside login")
+
   const [isLogin, setIsLogin] = useState(false);
   const [error,setError]=useState('');
+
+  const router=useRouter();
   const emailRef=useRef(null);
   const passwordRef=useRef(null);
   const nameRef=useRef(null);
+  const dispatch=useDispatch();
 
-  function handleSubmit(e){
-     e.preventDefault()
-    console.log("inside sign handler")
-    const email=emailRef.current?.value;
-    const password=passwordRef.current?.value;
-    const name=nameRef.current?.value;
-  const message=validateForm(email,password);
-  if(message){
-    setError(message)
-    return
-  }
-  const auth = getAuth();
-  signInWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-  });
+  async function  handleSubmit (e){
+    try {
 
-
+      e.preventDefault();
+      const email=emailRef.current?.value;
+      const password=passwordRef.current?.value;
+      const name=nameRef.current?.value;
+    const message=validateForm(email,password);
+  
+    if(message){
+  
+      setError(message)
+      return
+    }
+  
+    dispatch(addUser({id:email,password:password}))
+  localStorage.setItem('userData',  JSON.stringify({email,password}));
+    router.push('/browse')
+      
+    } catch (error) {
+      console.error("error in setting localstorage",error)
+    }
+   
+ 
   }
   return (
     <>
       <div className="absolute w-full h-full">
         <Image
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/fa4630b1-ca1e-4788-94a9-eccef9f7af86/web_tall_panel/IN-en-20250407-TRIFECTA-perspective_8be2cd93-f2e6-4e34-acba-05b716385704_small.jpg"
+          src={BG_URL}
           alt="Netflix background"
           fill
           priority
@@ -75,22 +82,9 @@ const Login = () => {
                 {error}
             </div>
         }
-        {!isLogin && (
+       
           <>
-            <button  type="submit" className="text-xl font-bold bg-red-700 px-20 py-2 rounded-lg">
-              Sign In
-            </button>
-            <button
-              type="button"
-              onClick={() => setIsLogin(!isLogin)}
-              className="text-xl"
-            >
-              Sign Up
-            </button>
-          </>
-        )}
-        {isLogin && (
-          <>
+          {isLogin && 
             <input
              ref={nameRef}
               type="text"
@@ -98,19 +92,19 @@ const Login = () => {
               className="border border-black bg-gray-900 p-2 rounded-lg"
               required
             />
- <button  type="submit" className="text-xl font-bold bg-red-700 px-20 py-2 rounded-lg">
-              Sign Up
+          }
+            <button  type="submit" className="text-xl font-bold bg-red-700 px-20 py-2 rounded-lg cursor-pointer">
+           {!isLogin ?  'Sign In':'Sign Up'} 
             </button>
-
             <button
               type="button"
               onClick={() => setIsLogin(!isLogin)}
               className="text-xl"
             >
-              Sign In
+              {!isLogin ?  'Sign Up':'Sign In'} 
             </button>
           </>
-        )}
+        
       </form>
     </>
   );
