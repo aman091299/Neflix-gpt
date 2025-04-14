@@ -48,7 +48,7 @@ const SearchGPT=()=>{
        alt="Netflix background"
           fill
           priority
-          className="object-cover"
+          className="object-cover z-12 "
     />
    <div>
    <SearchBar/>

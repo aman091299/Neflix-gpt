@@ -1,14 +1,18 @@
 "use client";
 
 import OpenAI from "openai";
-import { useRef } from "react";
+import { useRef,useState } from "react";
 import { API_OPTIONS } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { addGPTMovies } from "../utils/searchGPTSlice";
 import Header from "./Header";
-
+import lang from '../utils/languageConstants'
+import {useSelector} from 'react-redux'
+import Loader from "./common/Loader";
 const SearchBar = () => {
+  const [loading,setLoading]=useState(false);
   const movieSuggestion = useRef(null);
+  const language=useSelector(store=>store.langConfig.lang)
 
   const dispatch=useDispatch();
   const getTMDBMovies=async(movie)=>{
@@ -20,32 +24,35 @@ const SearchBar = () => {
         return json.results;
         
     } catch (error) {
-        console.error("fail in fetch movie from TMDB movie api",error)
+        console.error("fail in fetch movie from TMDB movie api",error);
+        throw error
+ 
     }
 
   }
   async function searchHandler() {
+    setLoading(true);
     try {
-    //   const client = new OpenAI({
-    //     apiKey: process.env.NEXT_PUBLIC_OPENAI_KEY,
-    //     dangerouslyAllowBrowser: true,
-    //   });
+      const client = new OpenAI({
+        apiKey: process.env.NEXT_PUBLIC_OPENAI_KEY,
+        dangerouslyAllowBrowser: true,
+      });
 
-    //   const gptQuery =
-    //     "Act as movie recommendation system suggest me some movie from the query" +
-    //     movieSuggestion.current.value +
-    //     "only give me names of 5 movies only no other text then movie names separated by comma example like solay,rang de basti,jak de india,jab tak hai jain ,lagaan";
-    //   const gptResult = await client.chat.completions.create({
-    //     model: "gpt-4o-mini",
-    //     store: true,
-    //     messages: [{ role: "user", content: gptQuery }],
-    //   });
+      const gptQuery =
+      "Act as a movie recommendation system. Suggest 5 movies based on the keyword starting with: " +
+      movieSuggestion.current.value +
+      ". Only return the names of 5 movies, separated by commas. No other text. Example: Sholay, Rang De Basanti, Chak De India, Jab Tak Hai Jaan, Lagaan.";
+      const gptResult = await client.chat.completions.create({
+        model: "gpt-4o-mini",
+        store: true,
+        messages: [{ role: "user", content: gptQuery }],
+      });
 
-    //   console.log("inside gpt api", gptResult.choices[0].message.content);
-    //   console.log("inside gpt api message", gptResult.choices[0].message);
-    //   const fiveGPTMovies = gptResult.choices[0].message.content.split(",");
+      console.log("inside gpt api", gptResult.choices[0].message.content);
+      console.log("inside gpt api message", gptResult.choices[0].message);
+      const fiveGPTMovies = gptResult.choices[0].message.content.split(",");
+      // const fiveGPTMovies=[ "Sholay", "Rang De Basanti", "Chak De India", "Jab Tak Hai Jaan", "Lagaan"]
 
-    const fiveGPTMovies=["Tumbbad", "Andhadhun", "Stree", "Drishyam", "Bhool Bhulaiyaa"]
      console.log(fiveGPTMovies)
      const promisesArray= fiveGPTMovies.map((movie)=>(getTMDBMovies(movie)));
      const tmdbResult=await Promise.all( promisesArray);
@@ -54,30 +61,42 @@ const SearchBar = () => {
     } catch (error) {
       console.error("fail in fetch open ai api data", error);
     }
+    finally{
+      setLoading(false);
+    }
   }
 
- 
+
 
   return (
+    <>
+    {
+      loading && <div>
+      <div className="absolute inset-0 flex justify-center items-center  bg-opacity-20 z-27">
+      <div className="animate-spin rounded-full h-16 w-16 border-4 border-blue-500 border-t-transparent" ></div>
+      </div>
+      </div>
+     }
     <div>
     <Header/>
     <div className=" flex justify-center items-center  h-screen">
-      <div className="relative z-40 bg-black w-6/12 flex gap-4 items-center  ">
+      <div className="relative z-25 bg-black w-6/12 flex gap-4 items-center  ">
         <input
           ref={movieSuggestion}
           type="text"
-          placeholder="What type of movies do you want search here"
+          placeholder={lang[language].SearchPlaceholder}
           className="px-4 py-2 m-2 bg-white w-[80%] focus:outline-none  "
         />
-        <div
-          className="bg-red-700 text-white py-2 px-6 rounded-lg m-2"
-          onClick={searchHandler}
+        <button
+          
+          className={`text-white py-2 z-0 px-6 rounded-lg m-2 cursor-pointer ${loading ?"bg-gray-500":"bg-red-700" } hover:bg-red-500 btn btn-blue focus:outline-none focus:border`}   onClick={searchHandler}
         >
-          Search{" "}
-        </div>
+         {loading ?"Searching...":"Search "}
+        </button>
       </div>
     </div>
     </div>
+    </>
   );
 };
 

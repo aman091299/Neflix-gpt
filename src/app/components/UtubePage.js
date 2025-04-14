@@ -1,6 +1,12 @@
+
+
 import {useRef} from 'react'
+import { useSelector } from 'react-redux'
+import lang from '../utils/languageConstants'
 
 const UtubePage = () => {
+  const language=useSelector(store=>store.langConfig.lang)
+
     const playVideoRef=useRef(null);
     const handlePlay=()=>{
         try {
@@ -24,8 +30,8 @@ const UtubePage = () => {
     <button  className="bg-white rounded-lg text-black px-6 py-2" onClick={
        handlePlay
       }
-      >Play</button>
-    <button className="bg-gray-600 rounded-lg text-black px-6 py-2">More info</button>
+      >  {lang[language].PlayMore}</button>
+    <button className="bg-gray-600 rounded-lg text-black px-6 py-2">{lang[language].MoreInfo}</button>
    </div>
    </>
   )

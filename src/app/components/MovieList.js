@@ -3,6 +3,7 @@ import { IMG_URL } from "../utils/constants";
 import Image from "next/image";
 
 import useMovie from "../hooks/useMovie";
+import { useEffect } from "react";
 
 const MovieList = ({ title, gptMovies }) => {
   let movies = gptMovies;
@@ -21,11 +22,12 @@ const MovieList = ({ title, gptMovies }) => {
 
   if (!movies) {
     return (
-      <div className="absolute inset-0 flex justify-center items-center bg-gray-100 bg-opacity-50">
+      <div className="absolute inset-0 flex justify-center items-center bg-opacity-50">
         <div className="animate-spin rounded-full h-16 w-16 border-4 border-blue-500 border-t-transparent"></div>
       </div>
     );
   }
+
 
   return (
     <div className="bg-black ">

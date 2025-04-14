@@ -5,11 +5,13 @@ import { useRef, useState } from "react";
 import { validateForm } from "../utils/validateForm";
 import { BG_URL } from '../utils/constants';
 import { addUser } from '../utils/userSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import { toogleGPTButton } from '../utils/searchGPTSlice';
 
+import lang from '../utils/languageConstants'
 const Login = () => {
 console.log("inside login")
+const language=useSelector(store=>store.langConfig.lang)
 
   const [isLogin, setIsLogin] = useState(false);
   const [error,setError]=useState('');
@@ -61,11 +63,11 @@ console.log("inside login")
       </div>
 
       <form onSubmit={handleSubmit} className="w-3/12  text-white absolute z-11   bg-black py-16 px-10  rounded-lg flex flex-col gap-6 opacity-90  left-110 top-20">
-        <h1 className="text-2xl font-bold">Sign In</h1>
+        <h1 className="text-2xl font-bold">{lang[language].signIn}</h1>
         <input
           type="email"
           ref={emailRef}
-          placeholder="email or phone number"
+          placeholder={lang[language].emailPlaceholder}
           className="border border-black bg-gray-900 p-2 rounded-lg"
           required
         />
@@ -77,7 +79,7 @@ console.log("inside login")
         <input
         ref={passwordRef}
           type="password"
-          placeholder="Password"
+          placeholder={lang[language].passwordPlaceholder}
           className="border border-black bg-gray-900 p-2 rounded-lg"
           required
         />
@@ -98,14 +100,14 @@ console.log("inside login")
             />
           }
             <button  type="submit" className="text-xl font-bold bg-red-700 px-20 py-2 rounded-lg cursor-pointer">
-           {!isLogin ?  'Sign In':'Sign Up'} 
+           {!isLogin ?  lang[language].signIn:lang[language].singOut}
             </button>
             <button
               type="button"
               onClick={() => setIsLogin(!isLogin)}
               className="text-xl"
             >
-              {!isLogin ?  'Sign Up':'Sign In'} 
+              {!isLogin ?   lang[language].signOut:lang[language].singIn} 
             </button>
           </>
         

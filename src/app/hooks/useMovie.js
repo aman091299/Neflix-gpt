@@ -13,6 +13,7 @@ console.log("inside movie list")
            setMovies(json.results)
       } catch (error) {
           console.error("fetchig movies list error",error)
+          throw error;
       }
   
   }
