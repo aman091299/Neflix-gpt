@@ -13,13 +13,25 @@ const MovieList = ({ title, gptMovies }) => {
     movies = useMovie();
   }
 
-  if (movies?.length === 0) {
-    return (
-      <div className="text-amber-400 px-10 m-1 ">
-        There are no movies available
-      </div>
-    );
-  }
+  const renderedMovies=useMemo(()=>{
+    return movies?.map((moviePoster) => (
+      <Image
+        key={moviePoster.id}
+        src={IMG_URL + moviePoster.poster_path}
+        width={180}
+        height={230}
+        alt="movies poster"
+      />
+    ))
+    },[movies])
+
+  // if (movies?.length === 0) {
+  //   return (
+  //     <div className="text-amber-400 px-10 m-1 ">
+  //       There are no movies available
+  //     </div>
+  //   );
+  // }
 
   if (!movies) {
     return (
@@ -29,22 +41,13 @@ const MovieList = ({ title, gptMovies }) => {
     );
   }
 
-  const renderedMovies=useMemo(()=>{
-  return movies?.map((moviePoster) => (
-    <Image
-      key={moviePoster.id}
-      src={IMG_URL + moviePoster.poster_path}
-      width={180}
-      height={230}
-      alt="movies poster"
-    />
-  ))
-  },[movies])
+  
 
 
   return (
     <div className="bg-black ">
-      <h1 className="text-2xl font-bold py-4 text-white px-4">{title}</h1>
+    {title &&   <h1 className="text-2xl font-bold py-4 text-white px-4">{title}</h1>}
+    
       <div className="flex overflow-x-scroll no-scrollbar">
         { renderedMovies}
       </div>
