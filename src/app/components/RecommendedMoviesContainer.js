@@ -4,9 +4,9 @@ import React, { useEffect } from "react";
 import MovieList from "./MovieList";
 import { useSelector } from "react-redux";
 const RecommendedMoviesContainer = () => {
-  ("inside revommende movies containeer ");
+  console.log("inside revommende movies containeer ");
   const movies = useSelector((store) => store?.gpt?.gptMovies);
-  (movies);
+  console.log(movies);
 
   // if(!movies){
   //   return null;

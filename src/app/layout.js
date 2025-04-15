@@ -10,7 +10,7 @@ import store from '../app/utils/store';
 // };
 
 export default function RootLayout({ children }) {
-  console.log("inside root ")
+
   return (
     <html lang="en">
       <body>

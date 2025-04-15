@@ -7,7 +7,7 @@ import {useState,useEffect} from 'react'
 import UtubePage from '../components/UtubePage';
 import ShimmerUI from '../components/ShimmerUI';
 const Browser=()=>{
-  console.log("inside browser")
+ 
   const router=useRouter();
   //  const [userData,setUserData]=useState(null)
    const [account, setAccount] = useState(null);
@@ -15,7 +15,7 @@ const Browser=()=>{
    useEffect(() => {
     // This code will only run on the client side
     try{
-      console.log("inside browser inside use effect ")
+      
       if (typeof window !== 'undefined') {
         const userData = localStorage.getItem('userData');
         if (userData) {

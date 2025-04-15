@@ -1,29 +1,32 @@
 import { IMG_URL } from "../utils/constants";
-
+import Link from "next/link";
 import Image from "next/image";
 
 import useMovie from "../hooks/useMovie";
 import { useMemo } from "react";
 
-
 const MovieList = ({ title, gptMovies }) => {
-  let movies = gptMovies;
 
+
+  let movies = gptMovies;
   if (!gptMovies) {
     movies = useMovie();
   }
 
-  const renderedMovies=useMemo(()=>{
+  const renderedMovies = useMemo(() => {
+    console.log("movies", movies);
     return movies?.map((moviePoster) => (
+      <Link href={"/movieTailor/"+moviePoster.id}   key={moviePoster.id} >
       <Image
-        key={moviePoster.id}
+      className="max-w-none"
         src={IMG_URL + moviePoster.poster_path}
         width={180}
         height={230}
         alt="movies poster"
       />
-    ))
-    },[movies])
+       </Link>
+    ));
+  }, [movies]);
 
   // if (movies?.length === 0) {
   //   return (
@@ -41,16 +44,16 @@ const MovieList = ({ title, gptMovies }) => {
     );
   }
 
-  
-
-
   return (
     <div className="bg-black ">
-    {title &&   <h1 className="text-2xl font-bold py-4 text-white px-4">{title}</h1>}
-    
-      <div className="flex overflow-x-scroll no-scrollbar">
-        { renderedMovies}
-      </div>
+      {title && (
+        <h1 className="text-2xl font-bold py-4 text-white px-4">{title}</h1>
+      )}
+     
+        <div className="flex overflow-x-scroll no-scrollbar">
+          {renderedMovies}
+        </div>
+     
     </div>
   );
 };

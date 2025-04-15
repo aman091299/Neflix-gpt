@@ -24,7 +24,7 @@ const UtubePage = () => {
   return (
     <>
     <div className=" w-screen h-screen top-[-1]">
-    <iframe className="h-full w-full" ref={playVideoRef} src="https://www.youtube.com/embed/-2RAq5o5pwc" title="Jhol | Coke Studio Pakistan | Season 15 | Maanu x Annural Khalid" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>      
+    <iframe className="h-full w-full" ref={playVideoRef} src="https://www.youtube.com/embed/-2RAq5o5pwc" title="Jhol | Coke Studio Pakistan | Season 15 | Maanu x Annural Khalid"  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>      
         </div>
    <div className="absolute top-60 left-20 flex  gap-4">
     <button  className="bg-white rounded-lg text-black px-6 py-2" onClick={

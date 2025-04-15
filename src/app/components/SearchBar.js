@@ -37,10 +37,24 @@ const SearchBar = () => {
         dangerouslyAllowBrowser: true,
       });
 
-      const gptQuery =
-      "Act as a movie recommendation system. Suggest 5 movies based on the keyword starting with: " +
-      movieSuggestion.current.value +
-      ". Only return the names of 5 movies, separated by commas. No other text. Example: Sholay, Rang De Basanti, Chak De India, Jab Tak Hai Jaan, Lagaan.";
+      const gptQuery = `Act as a professional movie recommendation engine. Based on the user's input: "${movieSuggestion.current.value}", suggest exactly 5 relevant movie names. 
+
+Instructions:
+1- ONLY return the NAMES of 5 movies, separated by commas (no numbering, no extra text).
+2. If the input is a specific movie title (e.g., "Chup Chup Ke"), return 5 closely related movies (same genre, director, or theme).
+3- The movies should be relevant to the input (e.g.,same genre, title, theme, date or specific query).
+4-  Never recommend 18+/adult/pornographic content or 18+ or adult-rated content or porn movies or adult movies .
+5- If the input includes filters (e.g.,"INDIAN MOVIES" "IMDB rating above 7", "Hindi", "Bollywood", "from 2025"), apply them accurately and apply them precisely and find the date and accourding suggest the result..
+6- Format: Movie1, Movie2, Movie3, Movie4, Movie5
+
+Examples:
+Input: "Chup Chup Ke" → Output: Chup Chup Ke, Hungama, Hera Pheri, Garam Masala, Bhagam Bhag
+Input: "Bollywood movies with IMDb above 7 in 2025" → Output: (hypothetical) Fighter 2, Shaktimaan, Ramayana, Lahore 1947, Vedaa
+
+Example output:
+Sholay, Rang De Basanti, Chak De India, Jab Tak Hai Jaan, Lagaan`;
+
+
       const gptResult = await client.chat.completions.create({
         model: "gpt-4o-mini",
         store: true,
