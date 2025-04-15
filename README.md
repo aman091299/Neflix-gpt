@@ -47,3 +47,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 -making my website responsive
 -.env adding NEXT_PUBLIC_OPENAI_KEY
 -adding useMemo hook or optimising our site by  caching movie list component data 
+-adding  trailer section using param hook ,slug, dynamic url
