@@ -6,7 +6,7 @@ const lang={
       Homepage:"Homepage",
       PlayMore:"PlayMore",
       MoreInfo:"More Info",
-       SearchPlaceholder:"What type of movie do you want to search",
+       SearchPlaceholder:"Search movies by name, genre, rating, year, or mood ",
        signOut:"Sign Up",
        signIn:"Sign In",
        emailPlaceholder:"email",
