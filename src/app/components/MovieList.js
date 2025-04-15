@@ -3,7 +3,8 @@ import { IMG_URL } from "../utils/constants";
 import Image from "next/image";
 
 import useMovie from "../hooks/useMovie";
-import { useEffect } from "react";
+import { useMemo } from "react";
+
 
 const MovieList = ({ title, gptMovies }) => {
   let movies = gptMovies;
@@ -28,20 +29,24 @@ const MovieList = ({ title, gptMovies }) => {
     );
   }
 
+  const renderedMovies=useMemo(()=>{
+  return movies?.map((moviePoster) => (
+    <Image
+      key={moviePoster.id}
+      src={IMG_URL + moviePoster.poster_path}
+      width={180}
+      height={230}
+      alt="movies poster"
+    />
+  ))
+  },[movies])
+
 
   return (
     <div className="bg-black ">
       <h1 className="text-2xl font-bold py-4 text-white px-4">{title}</h1>
       <div className="flex overflow-x-scroll no-scrollbar">
-        {movies.map((moviePoster) => (
-          <Image
-            key={moviePoster.id}
-            src={IMG_URL + moviePoster.poster_path}
-            width={180}
-            height={230}
-            alt="movies poster"
-          />
-        ))}
+        { renderedMovies}
       </div>
     </div>
   );

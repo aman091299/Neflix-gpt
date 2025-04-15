@@ -20,7 +20,6 @@ const SearchBar = () => {
        
         const data=await fetch("https://api.themoviedb.org/3/search/movie?query="+movie+"&include_adult=false&language=en-US&page=1",API_OPTIONS);
         const json =await data.json();
-        console.log(json.results)
         return json.results;
         
     } catch (error) {
@@ -48,12 +47,10 @@ const SearchBar = () => {
         messages: [{ role: "user", content: gptQuery }],
       });
 
-      console.log("inside gpt api", gptResult.choices[0].message.content);
-      console.log("inside gpt api message", gptResult.choices[0].message);
-      const fiveGPTMovies = gptResult.choices[0].message.content.split(",");
-      // const fiveGPTMovies=[ "Sholay", "Rang De Basanti", "Chak De India", "Jab Tak Hai Jaan", "Lagaan"]
 
-     console.log(fiveGPTMovies)
+      const fiveGPTMovies = gptResult.choices[0].message.content.split(",");
+
+      // const fiveGPTMovies=[ "Sholay", "Rang De Basanti", "Chak De India", "Jab Tak Hai Jaan", "Lagaan"]
      const promisesArray= fiveGPTMovies.map((movie)=>(getTMDBMovies(movie)));
      const tmdbResult=await Promise.all( promisesArray);
      dispatch(addGPTMovies(tmdbResult))
@@ -80,12 +77,12 @@ const SearchBar = () => {
     <div>
     <Header/>
     <div className=" flex justify-center items-center  h-screen">
-      <div className="relative z-25 bg-black w-6/12 flex gap-4 items-center  ">
+      <div className="relative z-25 bg-black md:w-6/12 flex gap-4 items-center  ">
         <input
           ref={movieSuggestion}
           type="text"
           placeholder={lang[language].SearchPlaceholder}
-          className="px-4 py-2 m-2 bg-white w-[80%] focus:outline-none  "
+          className="px-4 py-2 m-2 bg-white md:w-[80%] focus:outline-none text-[15px] md:font-normal"
         />
         <button
           

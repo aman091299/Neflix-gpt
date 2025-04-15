@@ -51,7 +51,7 @@ const language=useSelector(store=>store.langConfig.lang)
  
   }
   return (
-    <>
+    <div className="">
       <div className="absolute w-full h-full">
         <Image
           src={BG_URL}
@@ -61,8 +61,8 @@ const language=useSelector(store=>store.langConfig.lang)
           className="object-cover"
         />
       </div>
-
-      <form onSubmit={handleSubmit} className="w-3/12  text-white absolute z-11   bg-black py-16 px-10  rounded-lg flex flex-col gap-6 opacity-90  left-110 top-20">
+      <div className="md:flex-none flex justify-center ">
+      <form onSubmit={handleSubmit} className="md:w-3/12  text-white top-50  w-[80%] absolute z-11   bg-black py-16 px-10  rounded-lg flex flex-col gap-6 opacity-90  md:left-110 md:top-17">
         <h1 className="text-2xl font-bold">{lang[language].signIn}</h1>
         <input
           type="email"
@@ -100,19 +100,27 @@ const language=useSelector(store=>store.langConfig.lang)
             />
           }
             <button  type="submit" className="text-xl font-bold bg-red-700 px-20 py-2 rounded-lg cursor-pointer">
-           {!isLogin ?  lang[language].signIn:lang[language].singOut}
+           {!isLogin ? (lang[language].signIn)
+           :
+           (lang[language].signOut)
+           }
             </button>
             <button
               type="button"
               onClick={() => setIsLogin(!isLogin)}
               className="text-xl"
             >
-              {!isLogin ?   lang[language].signOut:lang[language].singIn} 
+              {
+              !isLogin ?
+               (lang[language].signOut) 
+              :(lang[language].signIn)
+              } 
             </button>
           </>
         
       </form>
-    </>
+      </div>
+    </div>
   );
 };
 

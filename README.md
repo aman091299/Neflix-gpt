@@ -43,3 +43,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 -filter the movie base on recommendation of movie in the search bar 
 -Memoization inside useffect in useMovie hook
 -solve blinking issue by providing loader inside  useEffect
+-adding language confugaraion by change language
+-making my website responsive
