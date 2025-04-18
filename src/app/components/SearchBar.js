@@ -39,12 +39,12 @@ const SearchBar = () => {
 
       const gptQuery = `Act as a professional movie recommendation engine. Based on the user's input: "${movieSuggestion.current.value}", suggest exactly 5 relevant movie names. 
 
-Instructions:
+Guidelines:
 1- ONLY return the NAMES of 5 movies, separated by commas (no numbering, no extra text).
 2. If the input is a specific movie title (e.g., "Chup Chup Ke"), return 5 closely related movies (same genre, director, or theme).
 3- The movies should be relevant to the input (e.g.,same genre, title, theme, date or specific query).
 4-  Never recommend 18+/adult/pornographic content or 18+ or adult-rated content or porn movies or adult movies .
-5- If the input includes filters (e.g.,"INDIAN MOVIES" "IMDB rating above 7", "Hindi", "Bollywood", "from 2025","latest","Hollywood","web series","latest movies of imdb rating 8 ","imdb","8","7","9","imdb 8 above","imdb 8 rating"), apply them accurately and apply them precisely and find the date and accourding suggest the result..
+5- If the input includes filters (e.g.,"INDIAN MOVIES" "IMDB rating above 7", "Hindi", "Bollywood", "from 2025","latest","Hollywood","web series","latest movies of imdb rating 8 ","imdb","8","7","9","imdb 8 above","imdb 8 rating"),  apply them strictly
 6- Format: Movie1, Movie2, Movie3, Movie4, Movie5
 
 Examples:
